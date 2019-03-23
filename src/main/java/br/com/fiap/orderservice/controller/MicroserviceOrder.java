@@ -3,6 +3,8 @@ package br.com.fiap.orderservice.controller;
 import br.com.fiap.orderservice.dto.DTOOrder;
 import jdk.nashorn.internal.parser.JSONParser;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -15,19 +17,21 @@ public class MicroserviceOrder {
 
 
     @GetMapping("/order/findById/{idPedido}")
-    public DTOOrder findOrderById(@PathVariable(value="idPedido", required = true) String idPedido){
+    public ResponseEntity<DTOOrder> findOrderById(@PathVariable(value="idPedido", required = true) String idPedido){
         System.out.println("**** ID PEDIDO: "+ idPedido);
         DTOOrder order = new DTOOrder();
+        ResponseEntity res;
 
         try{
             if( mapOrders.containsKey(idPedido)){
                  order = mapOrders.get(idPedido);
-            }
+                 res = new ResponseEntity(order, HttpStatus.OK);
+            } else res = new ResponseEntity(null, HttpStatus.NOT_FOUND);
         }catch(Exception e){
-
+            res = new ResponseEntity(null, HttpStatus.NOT_FOUND);
         }
 
-        return order;
+        return res;
     }
 
     @PostMapping("/order/save")
@@ -82,14 +86,14 @@ public class MicroserviceOrder {
         return url;
     }
 
-    @DeleteMapping("/order/delete")
+    @DeleteMapping("/order/delete/{id}")
     public String excluirPedido(@PathVariable( value = "id", required = true) String id){
         String retorno = "";
         DTOOrder order = new DTOOrder();
         try{
             if( id == null && id.equals("") )
                 throw new Exception("Favor informar o Id do registro para exclusão.");
-            if( mapOrders.containsKey(id) )
+            if( !mapOrders.containsKey(id) )
                 throw new Exception("Id não consta da base de dados.");
 
             mapOrders.remove(id);
