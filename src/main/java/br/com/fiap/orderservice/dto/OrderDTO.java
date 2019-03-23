@@ -11,7 +11,7 @@ import java.util.List;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class DTOOrder {
+public class OrderDTO {
 
     private String email;
     private String nome;
@@ -20,10 +20,10 @@ public class DTOOrder {
     private Integer quantidadeItens;
     private Double precoTotal;
     private String formaPagamento;
-    private DTOTransacaoPagamento transacao;
+    private TransacaoPagamentoDTO transacao;
     private String dtPedido;
     private String statusPedido;
-    private List<DTOOrderItem> lstItensPedido;
+    private List<OrderItemDTO> lstItensPedido;
 
     @Override
     public String toString() {

@@ -1,9 +1,8 @@
 package br.com.fiap.orderservice.controller;
 
-import br.com.fiap.orderservice.dto.DTOOrder;
-import br.com.fiap.orderservice.dto.DTOOrderItem;
-import br.com.fiap.orderservice.dto.DTOTransacaoPagamento;
-import jdk.nashorn.internal.parser.JSONParser;
+import br.com.fiap.orderservice.dto.OrderDTO;
+import br.com.fiap.orderservice.dto.OrderItemDTO;
+import br.com.fiap.orderservice.dto.TransacaoPagamentoDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +14,13 @@ import java.util.HashMap;
 @RestController
 public class MicroserviceOrder {
 
-    private HashMap<String, DTOOrder> mapOrders = new HashMap<>();
+    private HashMap<String, OrderDTO> mapOrders = new HashMap<>();
 
 
     @GetMapping("/order/findById/{idPedido}")
-    public ResponseEntity<DTOOrder> findOrderById(@PathVariable(value="idPedido", required = true) String idPedido){
+    public ResponseEntity<OrderDTO> findOrderById(@PathVariable(value="idPedido", required = true) String idPedido){
         System.out.println("**** ID PEDIDO: "+ idPedido);
-        DTOOrder order = new DTOOrder();
+        OrderDTO order = new OrderDTO();
         ResponseEntity res;
 
         try{
@@ -37,10 +36,10 @@ public class MicroserviceOrder {
     }
 
     @PostMapping("/order/save")
-    public String salvarPedido(@RequestBody DTOOrder aOrder){
+    public String salvarPedido(@RequestBody OrderDTO aOrder){
 
         String url = "http://localhost:8080/order/findById/";
-        DTOOrder order = new DTOOrder();
+        OrderDTO order = new OrderDTO();
         try{
             if( aOrder.getIdOrder() == null || aOrder.getIdOrder().equals("")){
                 order = aOrder;
@@ -63,10 +62,10 @@ public class MicroserviceOrder {
 
     @PutMapping("/order/update/{id}")
     public String atualizarPedido(@PathVariable (value = "id", required = true) String id,
-                                  @RequestBody DTOOrder aOrder){
+                                  @RequestBody OrderDTO aOrder){
 
         String url = "http://localhost:8080/order/findById/";
-        DTOOrder order = new DTOOrder();
+        OrderDTO order = new OrderDTO();
         try{
             if( id == null || id.equals("") )
                 throw new Exception("Favor informar o Id do registro para alteração.");
@@ -80,8 +79,8 @@ public class MicroserviceOrder {
             order.setPrecoTotal(aOrder.getPrecoTotal());
             order.setFormaPagamento(aOrder.getFormaPagamento());
             //Atualiza atributos do OrderItem
-            for(DTOOrderItem item : order.getLstItensPedido()) {
-                for( DTOOrderItem aItem : aOrder.getLstItensPedido()) {
+            for(OrderItemDTO item : order.getLstItensPedido()) {
+                for( OrderItemDTO aItem : aOrder.getLstItensPedido()) {
                     if( item.getDecricao().equalsIgnoreCase(aItem.getDecricao())) {
                         item.setDecricao(aItem.getDecricao());
                         item.setPrecoTotal(aItem.getPrecoTotal());
@@ -91,8 +90,8 @@ public class MicroserviceOrder {
                 }
             }
             //Atualiza atributos
-            DTOTransacaoPagamento pgto = order.getTransacao();
-            DTOTransacaoPagamento pgtoNovo = order.getTransacao();
+            TransacaoPagamentoDTO pgto = order.getTransacao();
+            TransacaoPagamentoDTO pgtoNovo = order.getTransacao();
             pgto.setBandeira(pgtoNovo.getBandeira());
             pgto.setDataValidadeCartao(pgtoNovo.getDataValidadeCartao());
             pgto.setId(pgtoNovo.getId());
@@ -108,7 +107,7 @@ public class MicroserviceOrder {
     @DeleteMapping("/order/delete/{id}")
     public String excluirPedido(@PathVariable( value = "id", required = true) String id){
         String retorno = "";
-        DTOOrder order = new DTOOrder();
+        OrderDTO order = new OrderDTO();
         try{
             if( id == null && id.equals("") )
                 throw new Exception("Favor informar o Id do registro para exclusão.");

@@ -8,7 +8,7 @@ import lombok.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class DTOTransacaoPagamento {
+public class TransacaoPagamentoDTO {
 
     private String id;
     private String numeroCartao;

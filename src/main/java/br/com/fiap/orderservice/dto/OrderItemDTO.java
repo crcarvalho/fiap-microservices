@@ -8,7 +8,7 @@ import lombok.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class DTOOrderItem {
+public class OrderItemDTO {
 
     private String decricao;
     private Double precoUnitario;
