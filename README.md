@@ -25,7 +25,7 @@
     	"dataValidadeCartao" : "STRING",
     	"bandeira" : "STRING"
     },
-    "dtPedido" : "STRING",
+    "dtPedido" : "STRING (MM/DD/YYYY)",
     "statusPedido" : "STRING",
     "lstItensPedido":
     	[{
