@@ -15,7 +15,6 @@ public class DTOOrder {
 
     private String email;
     private String nome;
-    private String completo;
     private String shippingAddress;
     private String idOrder;
     private Integer quantidadeItens;
@@ -28,6 +27,10 @@ public class DTOOrder {
 
     @Override
     public String toString() {
-        return String.valueOf( getEmail() + getIdOrder() + getNome() + getShippingAddress() + getPrecoTotal() );
+        return String.valueOf( "Pedido: { Email: " + getEmail()
+                              +", Id: " + getIdOrder()
+                              +", Nome: " + getNome()
+                              +", Endereço: "+ getShippingAddress()
+                              +", Preço total: "+ getPrecoTotal() +" }");
     }
 }

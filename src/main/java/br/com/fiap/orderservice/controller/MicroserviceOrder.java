@@ -9,7 +9,6 @@ import java.util.HashMap;
 
 @Slf4j
 @RestController
-
 public class MicroserviceOrder {
 
     private HashMap<String, DTOOrder> mapOrders = new HashMap<>();
@@ -63,7 +62,7 @@ public class MicroserviceOrder {
         DTOOrder order = new DTOOrder();
         try{
             if( aOrder.getIdOrder() == null || aOrder.getIdOrder().equals("") )
-                throw new Exception("Favor informar o Id do regsitro para alteração.");
+                throw new Exception("Favor informar o Id do registro para alteração.");
 
             order = aOrder;
             //Gera um novo ID
@@ -83,5 +82,24 @@ public class MicroserviceOrder {
         return url;
     }
 
+    @DeleteMapping("/order/delete")
+    public String excluirPedido(@PathVariable( value = "id", required = true) String id){
+        String retorno = "";
+        DTOOrder order = new DTOOrder();
+        try{
+            if( id == null && id.equals("") )
+                throw new Exception("Favor informar o Id do registro para exclusão.");
+            if( mapOrders.containsKey(id) )
+                throw new Exception("Id não consta da base de dados.");
+
+            mapOrders.remove(id);
+            retorno = "Registro " + id + " excluído com sucesso!";
+        }catch(Exception e){
+            retorno = "Exceção: "+e.getMessage();
+            System.out.println(retorno);
+        }
+
+        return retorno;
+    }
 
 }
