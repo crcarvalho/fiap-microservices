@@ -1,6 +1,8 @@
 package br.com.fiap.orderservice.controller;
 
 import br.com.fiap.orderservice.dto.DTOOrder;
+import br.com.fiap.orderservice.dto.DTOOrderItem;
+import br.com.fiap.orderservice.dto.DTOTransacaoPagamento;
 import jdk.nashorn.internal.parser.JSONParser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -59,25 +61,42 @@ public class MicroserviceOrder {
         return url;
     }
 
-    @PutMapping("/order/update")
-    public String atualizarPedido(@RequestBody DTOOrder aOrder){
+    @PutMapping("/order/update/{id}")
+    public String atualizarPedido(@PathVariable (value = "id", required = true) String id,
+                                  @RequestBody DTOOrder aOrder){
 
         String url = "http://localhost:8080/order/findById/";
         DTOOrder order = new DTOOrder();
         try{
-            if( aOrder.getIdOrder() == null || aOrder.getIdOrder().equals("") )
+            if( id == null || id.equals("") )
                 throw new Exception("Favor informar o Id do registro para alteração.");
 
-            order = aOrder;
-            //Gera um novo ID
-            String idNovo = String.valueOf(Math.random());
-            idNovo = idNovo.replace(".","");
-            order.setIdOrder(idNovo);
-            //Preenche o Id na URL de retorno
-            url += order.getIdOrder();
-            System.out.println("CR=order= "+ order.toString());
-            mapOrders.put( order.getIdOrder(), order );
+            order = mapOrders.get( id );
+            if( order == null ) throw new Exception("Pedido não encontrado!");
 
+            //Atualiza atributos do order
+            order.setShippingAddress(aOrder.getShippingAddress());
+            order.setQuantidadeItens(aOrder.getQuantidadeItens());
+            order.setPrecoTotal(aOrder.getPrecoTotal());
+            order.setFormaPagamento(aOrder.getFormaPagamento());
+            //Atualiza atributos do OrderItem
+            for(DTOOrderItem item : order.getLstItensPedido()) {
+                for( DTOOrderItem aItem : aOrder.getLstItensPedido()) {
+                    if( item.getDecricao().equalsIgnoreCase(aItem.getDecricao())) {
+                        item.setDecricao(aItem.getDecricao());
+                        item.setPrecoTotal(aItem.getPrecoTotal());
+                        item.setPrecoUnitario(aItem.getPrecoUnitario());
+                        item.setQuantidade(aItem.getQuantidade());
+                    }
+                }
+            }
+            //Atualiza atributos
+            DTOTransacaoPagamento pgto = order.getTransacao();
+            DTOTransacaoPagamento pgtoNovo = order.getTransacao();
+            pgto.setBandeira(pgtoNovo.getBandeira());
+            pgto.setDataValidadeCartao(pgtoNovo.getDataValidadeCartao());
+            pgto.setId(pgtoNovo.getId());
+            pgto.setNumeroCartao(pgtoNovo.getNumeroCartao());
         }catch(Exception e){
             System.out.println("Exceção: "+e.getMessage());
             url += null;
