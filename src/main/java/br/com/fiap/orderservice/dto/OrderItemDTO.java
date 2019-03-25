@@ -3,6 +3,8 @@ package br.com.fiap.orderservice.dto;
 
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -11,8 +13,26 @@ import lombok.*;
 public class OrderItemDTO {
 
     private String decricao;
-    private Double precoUnitario;
+    private BigDecimal precoUnitario;
     private Integer quantidade;
-    private Double precoTotal;
+    private BigDecimal precoTotal;
+
+
+    public void setPrecoTotal(BigDecimal value){
+        this.precoTotal = value.setScale(2, BigDecimal.ROUND_UP);
+    }
+
+    public Double getPrecoTotal(){
+        return this.precoTotal.doubleValue();
+    }
+
+
+    public void setPrecoUnitario(BigDecimal value){
+        this.precoTotal = value.setScale(2, BigDecimal.ROUND_UP);
+    }
+
+    public Double getPrecoUnitario(){
+        return this.precoTotal.doubleValue();
+    }
 
 }

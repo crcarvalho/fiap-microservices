@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 
 @Slf4j
@@ -76,15 +77,15 @@ public class MicroserviceOrder {
             //Atualiza atributos do order
             order.setShippingAddress(aOrder.getShippingAddress());
             order.setQuantidadeItens(aOrder.getQuantidadeItens());
-            order.setPrecoTotal(aOrder.getPrecoTotal());
+            order.setPrecoTotal(new BigDecimal(aOrder.getPrecoTotal()));
             order.setFormaPagamento(aOrder.getFormaPagamento());
             //Atualiza atributos do OrderItem
             for(OrderItemDTO item : order.getLstItensPedido()) {
                 for( OrderItemDTO aItem : aOrder.getLstItensPedido()) {
                     if( item.getDecricao().equalsIgnoreCase(aItem.getDecricao())) {
                         item.setDecricao(aItem.getDecricao());
-                        item.setPrecoTotal(aItem.getPrecoTotal());
-                        item.setPrecoUnitario(aItem.getPrecoUnitario());
+                        item.setPrecoTotal(new BigDecimal(aItem.getPrecoTotal()));
+                        item.setPrecoUnitario( new BigDecimal(aItem.getPrecoUnitario()));
                         item.setQuantidade(aItem.getQuantidade());
                     }
                 }

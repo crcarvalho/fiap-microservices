@@ -11,7 +11,7 @@
 * PATH: [DOMINIO]/order/save
 * DESCRIÇÃO: Criação de pedido com itens e transação de pagamento.
 * PAYLOAD: 
-`
+```json
 {
     "email":"STRING",
     "nome":"STRING",
@@ -41,7 +41,7 @@
 * PATH: [DOMINIO]/order/update/{id}
 * DESCRIÇÃO: Atualização do pedido com itens e transação de pagamento.
 * PAYLOAD: 
-`
+```json
 {
     "idOrder" : "",
     "shippingAddress" : "STRING",
