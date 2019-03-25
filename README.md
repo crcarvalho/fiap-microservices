@@ -25,7 +25,7 @@
     	"dataValidadeCartao" : "STRING",
     	"bandeira" : "STRING"
     },
-    "dtPedido" : "STRING (MM/DD/YYYY)",
+    "dtPedido" : "STRING",
     "statusPedido" : "STRING",
     "lstItensPedido":
     	[{
@@ -36,6 +36,8 @@
     	}] 
 }
 ```
+* FORMATO
+	- dtPedido: "MM/DD/YYYY"
 ### Método PUT
 
 * PATH: [DOMINIO]/order/update/{id}
