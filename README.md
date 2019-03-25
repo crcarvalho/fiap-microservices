@@ -35,7 +35,7 @@
 		     "precoTotal" : DOUBLE	
     	}] 
 }
-`
+```
 ### Método PUT
 
 * PATH: [DOMINIO]/order/update/{id}
@@ -56,7 +56,7 @@
 		 "precoTotal" : DOUBLE	
     	}] 
 }
-`
+```
 ### Método DELETE
 
 * PATH: [DOMINIO]/order/delete/{id}
