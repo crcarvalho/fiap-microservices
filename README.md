@@ -13,7 +13,7 @@
 #### ⋅⋅* PAYLOAD: 
 `
 {
-	"email":"STRING",
+    "email":"STRING",
     "nome":"STRING",
     "shippingAddress" : "STRING",
     "quantidadeItens" : INTEGER,
@@ -41,13 +41,6 @@
 #### ⋅⋅* PATH: [DOMINIO]/order/update/{id}
 #### ⋅⋅* DESCRIÇÃO: Atualização do pedido com itens e transação de pagamento.
 #### ⋅⋅* PAYLOAD: 
-
-(shipping address,
-descrição de cada item do pedido,
-quantidade de itens do pedido, 
-preço unitário de cada item, 
-preço total, 
-forma de pagamento e data do pedido
 `
 {
     "idOrder" : "",
