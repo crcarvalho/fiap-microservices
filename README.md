@@ -38,7 +38,7 @@
 `
 ### Método PUT
 
-#### ⋅⋅* PATH: [DOMINIO]/order/update/{id}
+#### ..* PATH: [DOMINIO]/order/update/{id}
 #### ⋅⋅* DESCRIÇÃO: Atualização do pedido com itens e transação de pagamento.
 #### ⋅⋅* PAYLOAD: 
 `
