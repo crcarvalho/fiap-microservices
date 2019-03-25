@@ -1,16 +1,16 @@
 # Microserviço de Pedido
-* TESTE
+
 ### Método GET
 
-#### ⋅⋅* PATH: [DOMINIO]/order/findById/{id}
-#### ⋅⋅* DESCRIÇÃO: Busca de pedido, item pedido e transação de pagamento atraves do id do pedido.
+* PATH: [DOMINIO]/order/findById/{id}
+* DESCRIÇÃO: Busca de pedido, item pedido e transação de pagamento atraves do id do pedido.
 
 
 ### Método POST
 
-#### ⋅⋅* PATH: [DOMINIO]/order/save
-#### ⋅⋅* DESCRIÇÃO: Criação de pedido com itens e transação de pagamento.
-#### ⋅⋅* PAYLOAD: 
+* PATH: [DOMINIO]/order/save
+* DESCRIÇÃO: Criação de pedido com itens e transação de pagamento.
+* PAYLOAD: 
 `
 {
     "email":"STRING",
@@ -38,9 +38,9 @@
 `
 ### Método PUT
 
-#### * PATH: [DOMINIO]/order/update/{id}
-#### ⋅⋅* DESCRIÇÃO: Atualização do pedido com itens e transação de pagamento.
-#### ⋅⋅* PAYLOAD: 
+* PATH: [DOMINIO]/order/update/{id}
+* DESCRIÇÃO: Atualização do pedido com itens e transação de pagamento.
+* PAYLOAD: 
 `
 {
     "idOrder" : "",
@@ -59,7 +59,7 @@
 `
 ### Método DELETE
 
-#### ⋅⋅* PATH: [DOMINIO]/order/delete/{id}
-#### ⋅⋅* DESCRIÇÃO: Exclui um pedido seus itens e transação atraves do ID do pedido.
+* PATH: [DOMINIO]/order/delete/{id}
+* DESCRIÇÃO: Exclui um pedido seus itens e transação atraves do ID do pedido.
 
 
